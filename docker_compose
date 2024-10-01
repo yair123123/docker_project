@@ -1,0 +1,30 @@
+version: '3'
+services:
+  # PostgreSQL for cars
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+  # PostgreSQL for cars
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+  # Flask app
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres  # PostgreSQL container name
+      - DB_USER=postgres
+      - DB_PASS=1234
+      - DB_NAME=postgres
