@@ -1,0 +1,46 @@
+version: '3'
+services:
+  # PostgreSQL for user
+  users:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: users
+    ports:
+      - 5432:5432
+    networks:
+      - db-network
+  # PostgreSQL for cars
+  cars:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: cars
+    ports:
+      - 5433:5432
+    networks:
+      - db-network
+  # Flask app
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - users
+      - cars
+    environment:
+      - DB_HOST1=users  # PostgreSQL container name
+      - DB_USER1=postgres
+      - DB_PASS1=1234
+      - DB_NAME1=users
+      - DB_HOST2=cars  # PostgreSQL container name
+      - DB_USER2=postgres
+      - DB_PASS2=1234
+      - DB_NAME2=cars
+    networks:
+      - db-network
+networks:
+  db-network:
+    driver: bridge

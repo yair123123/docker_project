@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine 
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DB1_NAME = "database1"
-DB1_USER = "car"
+DB1_NAME = "cars"
+DB1_USER = "postgres"
 DB1_PASS = "1234"
-DB1_HOST = "my-postgres1"  
+DB1_HOST = "cars"  
 DB1_PORT = "5432"        
 
 engine_db = create_engine(f'postgresql://{DB1_USER}:{DB1_PASS}@{DB1_HOST}:{DB1_PORT}/{DB1_NAME}')
